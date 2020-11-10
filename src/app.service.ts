@@ -1,13 +1,23 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as redis from 'redis';
+import * as fs from 'fs';
 
 @Injectable()
 export class AppService {
+  ssl = {
+    key: fs.readFileSync('/tmp/redis/server.key', 'ascii'),
+    cert: fs.readFileSync('/tmp/redis/server.crt', 'ascii'),
+    ca: [fs.readFileSync('/tmp/redis/rootCA.crt', 'ascii')],
+    checkServerIdentity: () => {
+      return null;
+    },
+  };
+
   private clientRedis = redis.createClient({
-    host: '127.0.0.1',
+    host: '192.168.18.60',
     port: 6379,
     password: 'password',
-    tls: false,
+    tls: this.ssl,
   });
 
   protected objToStr(value: any): string {

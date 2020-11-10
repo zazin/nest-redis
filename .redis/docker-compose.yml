@@ -1,0 +1,15 @@
+version: '3'
+services:
+  redis:
+    restart: on-failure
+    image: 'nurzazin/redis:latest'
+    container_name: my_redis
+    hostname: redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - ./certs/server.crt:/usr/local/etc/certs/server.crt
+      - ./certs/server.key:/usr/local/etc/certs/server.key
+      - ./certs/rootCA.crt:/usr/local/etc/certs/rootCA.crt
+      - ./certs/dhparam.pem:/usr/local/etc/certs/dhparam.pem
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
