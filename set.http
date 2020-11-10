@@ -1,0 +1,11 @@
+### set all
+POST http://localhost:3000
+Content-Type: application/json
+
+{
+  "value": {{$timestamp}}
+}
+
+### get all
+GET http://localhost:3000
+Accept: application/json
